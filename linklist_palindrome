@@ -1,0 +1,78 @@
+class Node:
+    def __init__(self,data,next=None):
+        self.data = data
+        self.next = next
+
+        
+def disp(head):
+    if(head is not None):
+       
+        print(head.data)
+        disp(head.next)
+    return " "
+    
+
+        
+def mid(head):
+    f=head
+    s=head
+    while(f is not None and f.next is not None ):
+        s=s.next
+        f=f.next.next
+    
+    return s
+
+
+def rev(head):
+    prev=None
+    while(head is not None):
+        next=head.next
+        head.next=prev
+        prev=head
+        head=next
+        
+    return prev
+
+
+def palindrome(head):
+    
+    m=mid(head)
+    
+    rev_head=rev(m)
+    
+    while(head is not None and rev_head is not None):
+        if head.data != rev_head.data:
+            print(rev_head.data)
+            break
+        
+        head=head.next
+        rev_head=rev_head.next
+    
+    if (head is None or rev_head is None):
+        return True
+    
+    return False
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+def main():
+    head = Node(1)
+    head.next = Node(2)
+    head.next.next=Node(2)
+    head.next.next.next=Node(1)
+    
+    print("data:")
+    print(disp(head))
+   
+    
+    print(palindrome(head))
+    
+    
+main()

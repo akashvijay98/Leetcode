@@ -1,0 +1,21 @@
+from heapq import *
+class Node:
+    def __init__(self,start,end):
+        self.start=start
+        self.end=end
+
+def merge(intervals):
+    intervals.sort(key=lambda x:x.start)
+    heap=[]
+    m=0
+    start=0
+    end=1
+    
+    for meeting in intervals:
+        while(len(heap)>0 and  meeting.start>=heap[0][end]):
+            heappop(heap)
+        heap.push(heap,meeting)
+        
+        m=max(m,len(heap))
+        
+merge(Node(4,5),Node(2,3),Node(2,4))

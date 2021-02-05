@@ -1,0 +1,64 @@
+class Node:
+    def __init__(self,data,next=None):
+        self.data = data
+        self.next = next
+
+def disp(head):
+    if(head is not None):
+       
+        print(head.data)
+        disp(head.next)
+    return " "  
+
+
+def mid(head):
+    f=head
+    s=head
+    while(f is not None and f.next is not None ):
+        s=s.next
+        f=f.next.next
+    
+    return s
+
+
+def rev(head):
+    prev=None
+    while(head is not None):
+        next=head.next
+        head.next=prev
+        prev=head
+        head=next
+        
+    return prev
+
+
+
+def re(head):
+    m=mid(head)
+    
+    s_head=rev(m)
+    
+    while(head != None and s_head!=None):
+        temp=head.next
+        head.next=s_head
+        head=temp
+    
+        temp=s_head.next
+        s_head.next=head
+        s_head=temp
+        
+        
+
+
+def main():
+    head = Node(1)
+    head.next = Node(2)
+    head.next.next=Node(3)
+    head.next.next.next=Node(4)
+    head.next.next.next.next=Node(5)
+    
+    
+    re(head)
+    print(disp(head))
+    
+main()
