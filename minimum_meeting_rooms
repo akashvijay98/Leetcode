@@ -22,7 +22,7 @@ class Solution:
             else:
                 heapq.heappush(minheap,end)
    
-                c+=1
+                c+=1 #c is used to show the size of the minheap(the number of rooms required)
             
             
             
