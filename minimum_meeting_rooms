@@ -1,21 +1,29 @@
-from heapq import *
-class Node:
-    def __init__(self,start,end):
-        self.start=start
-        self.end=end
-
-def merge(intervals):
-    intervals.sort(key=lambda x:x.start)
-    heap=[]
-    m=0
-    start=0
-    end=1
-    
-    for meeting in intervals:
-        while(len(heap)>0 and  meeting.start>=heap[0][end]):
-            heappop(heap)
-        heap.push(heap,meeting)
+import heapq
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        minheap=[]
         
-        m=max(m,len(heap))
+        if len(intervals)==0:
+            return 0
         
-merge(Node(4,5),Node(2,3),Node(2,4))
+        intervals.sort(key=lambda x:x[0]) #----> we sort the list based on start time 
+        
+        heapq.heappush(minheap,intervals[0][1]) #---> we create a minheap based on end time 
+                                                # min heap is used so that the meeting which will end early is kept at the top
+        c=1
+        for i in range(1,len(intervals)):
+            start,end= intervals[i]
+            
+            if len(minheap)!=None and start>=minheap[0]: #we check if the start time of current element is after the earliest meeting finishes.
+                                                          # if so we pop the earliest ending meeting and then push the current meeting as it starts later(this shows the same room can be used).
+                heapq.heappop(minheap)
+                heapq.heappush(minheap,end)
+                
+            else:
+                heapq.heappush(minheap,end)
+   
+                c+=1
+            
+            
+            
+        return c
